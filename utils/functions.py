@@ -1,6 +1,6 @@
-import pandas as pd
 import re
 import string
+import pandas as pd
 from wordcloud import WordCloud, STOPWORDS
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from nltk.stem import SnowballStemmer
@@ -14,12 +14,12 @@ import string
 import nltk
 nltk.download('stopwords')
 from nltk.corpus import stopwords
-n_words= set(stopwords.words('english'))
+n_words = set(stopwords.words('english'))
 from nltk.tokenize import word_tokenize
 from nltk.stem.porter import PorterStemmer
 from nltk.stem import WordNetLemmatizer
 import streamlit as st
-
+import twint
 
 porter = PorterStemmer()
 lemmatizer = WordNetLemmatizer()
@@ -99,3 +99,15 @@ def create_word_cloud(text: str, image_path=None):
     plt.tight_layout(pad=0)
 
     plt.show()
+
+
+def get_tweets(tweet_keyword):
+    t = twint.Config()
+    t.Search = tweet_keyword
+    t.Lang = "en"
+    t.Limit = 10000
+    t.Pandas = True
+    t.Store_csv = True
+    t.Output = "tweets_df_squid.csv"
+    twint.run.Search(t)
+
