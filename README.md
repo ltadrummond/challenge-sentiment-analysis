@@ -1,6 +1,4 @@
 #  Project Tweets Sentiment Analysis
-
-# Project Us-income Model Evaluation
 <img src="https://github.com/ltadrummond/us-income/blob/main/visuals/us-dollar-bundles.jpg">
 
 ## Description
@@ -20,7 +18,6 @@ The data was collected from twitter using a libary called twint. I was able to a
 * wordcloud
 * streamlit
 * nltk
-* 
 
 # Usage
 | File                        | Description                                                     |
