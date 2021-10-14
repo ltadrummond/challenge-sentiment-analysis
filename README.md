@@ -1,5 +1,5 @@
 #  Project Tweets Sentiment Analysis
-<img src="https://github.com/ltadrummond/us-income/blob/main/visuals/us-dollar-bundles.jpg">
+<img src="https://github.com/ltadrummond/challenge-sentiment-analysis/blob/main/images/twitter_img.jpg">
 
 ## Description
 
