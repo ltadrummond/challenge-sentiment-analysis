@@ -5,18 +5,10 @@ from wordcloud import WordCloud, STOPWORDS
 from textblob import TextBlob
 import re
 import string
-import nltk
-nltk.download('stopwords')
-from nltk.corpus import stopwords
-n_words = set(stopwords.words('english'))
 from nltk.tokenize import word_tokenize
-from nltk.stem.porter import PorterStemmer
-from nltk.stem import WordNetLemmatizer
 import twint
 import plotly.express as px
 import matplotlib.pyplot as plt
-porter = PorterStemmer()
-lemmatizer = WordNetLemmatizer()
 
 
 def prepare_df_to_clean_tweets(df):
@@ -31,7 +23,6 @@ def prepare_df_to_clean_tweets(df):
     return df
 
 def clean_tweets(text):
-    stopwords = nltk.corpus.stopwords.words('english')
     cleaned_sentence = text.lower()
     cleaned_sentence = re.sub('[0-9]+', '', cleaned_sentence)
     cleaned_sentence = "".join([i for i in cleaned_sentence if i not in string.punctuation])
@@ -39,18 +30,13 @@ def clean_tweets(text):
     if number_words > 256:
         cleaned_sentence = cleaned_sentence.split()[:256]
         cleaned_sentence = ' '.join(cleaned_sentence)
-    # removing @ tags and links from the text
     cleaned_sentence= ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t]) |(\w+:\/\/\S+)", " ", text).split())
-    # converting all letters to lower case and relacing '-' with spaces.
     cleaned_sentence= text.lower().replace('-', ' ')
-    # removing stowards and numbers
     table= str.maketrans('', '', string.punctuation+string.digits)
-    cleaned_sentence= text.translate(table)
+    cleaned_sentence = text.translate(table)
     # tokenizing words
     tokens = word_tokenize(cleaned_sentence)
     # stemming the words
-    stemmed = [porter.stem(word) for word in tokens]
-    words = [w for w in stemmed if not w in n_words]
     cleaned_sentence = ' '.join(words)
     return cleaned_sentence
 
