@@ -2,14 +2,8 @@ import re
 import string
 import pandas as pd
 from wordcloud import WordCloud, STOPWORDS
-from nltk.sentiment.vader import SentimentIntensityAnalyzer
-from nltk.stem import SnowballStemmer
-from nltk.sentiment.vader import SentimentIntensityAnalyzer
-from sklearn.feature_extraction.text import CountVectorizer
-import re
-import pandas as pd
 from textblob import TextBlob
-import csv
+import re
 import string
 import nltk
 nltk.download('stopwords')
@@ -18,14 +12,11 @@ n_words = set(stopwords.words('english'))
 from nltk.tokenize import word_tokenize
 from nltk.stem.porter import PorterStemmer
 from nltk.stem import WordNetLemmatizer
-import streamlit as st
 import twint
-
+import plotly.express as px
+import matplotlib.pyplot as plt
 porter = PorterStemmer()
 lemmatizer = WordNetLemmatizer()
-#nltk.download('punkt')
-#nltk.download('wordnet')
-import demoji
 
 
 def prepare_df_to_clean_tweets(df):
@@ -64,50 +55,38 @@ def clean_tweets(text):
     return cleaned_sentence
 
 
-def convert_emoji(tweet):
-    dict_emojis = demoji.findall(tweet)
-    for emoji, emoji_word in dict_emojis.items():
-        tweet = tweet.replace(emoji, f' {emoji_word}')
-    return tweet
-
-
-def create_word_cloud(text: str, image_path=None):
-    st.write('Creating Word Cloud..')
-
-    text = clean_text(text)
-
-    if image_path == None:
-
-        # Generate the word cloud
-        word_cloud = WordCloud(width=600, height=600,
-                              background_color='white',
-                              stopwords=STOPWORDS,
-                              min_font_size=10).generate(text)
-
-    else:
-        mask = np.array(Image.open(image_path))
-        word_cloud = WordCloud(width=600, height=600,
-                              background_color='white',
-                              stopwords=STOPWORDS,
-                              mask=mask,
-                              min_font_size=5).generate(text)
-
-        # plot the WordCloud image
-    plt.figure(figsize=(8, 8), facecolor=None)
-    plt.imshow(word_cloud, interpolation='nearest')
+def word_cloud(df):
+    text = " ".join(tweet for tweet in df.cleaned_tweet)
+    # Create and generate a word cloud image:
+    wc = WordCloud(max_font_size=50, max_words=100, background_color="white")
+    wc.generate(text)
+    plt.figure(figsize=[10,10])
+    plt.imshow(wc, interpolation='bilinear')
     plt.axis("off")
-    plt.tight_layout(pad=0)
-
     plt.show()
-
 
 def get_tweets(tweet_keyword):
     t = twint.Config()
     t.Search = tweet_keyword
     t.Lang = "en"
-    t.Limit = 10000
+    t.Limit = 100
     t.Pandas = True
-    t.Store_csv = True
-    t.Output = "tweets_df_squid.csv"
     twint.run.Search(t)
+    twint_df = twint.storage.panda.Tweets_df
+    return twint_df
 
+def sentiment_score_blob(tweet):
+    analysis = TextBlob(tweet)
+    senti= analysis.sentiment.polarity
+    if senti<0:
+        emotion = "Negative"
+    elif senti>0:
+        emotion = "Positive"
+    else:
+        emotion = "Neutral"
+    return emotion
+
+def plot_counting_sentiments(df):
+    fig = px.histogram(df, x="sentiment")
+    fig.update_layout(bargap=0.2)
+    return fig.show()

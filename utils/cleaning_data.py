@@ -9,7 +9,7 @@ print(df.duplicated().isnull())
 
 df = prepare_df_to_clean_tweets(df)
 df['cleaned_tweet'] = df['tweet'].apply(lambda x: clean_tweets(x))
-df = df.drop(columns='tweet')
+df = df.drop(columns=['tweet', 'language'])
 print(df.shape)
 
-
+df.to_csv('../data/final_df')
