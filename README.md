@@ -3,13 +3,13 @@
 
 ## Description
 
-The aim of this project is to be able to analyse a sentiment of a tweet, being this positive or negative. To do so it's requeired to be able to do scrapping from tweets related to the famous netflix series Squida Game. Also it is needed to correclty clean and preprocess the tweets. 
+The aim of this project is to be able to analyse a sentiment of a tweet, being this positive or negative. To do so it's requeired to be able to do scrapping from tweets related to the famous netflix series Squid Game. Also it is needed to correclty clean and preprocess the tweets. 
 Finally an sentiment analyser is deployed so anyone can analyse the sentiment on a desired tweet or get some general analytics about a tweet tag.
 The Twitter Analyzer Tool can be found on the following link: https://senti-tool-tweet.herokuapp.com/
 
 ## Installation
 * Python 3.8
-* Trello
+* Trello - https://trello.com/b/O3XOZfLC/nlp
 
 ## Databases
 The data was collected from twitter using a libary called twint. I was able to aquire around 11000 tweets.
@@ -36,12 +36,15 @@ The data was collected from twitter using a libary called twint. I was able to a
 
 # Visuals
 
-* Taking a look at how features correlate on the train set.
+* Taking a look of the overall feeling about the series Squid Game
+
 <img src="https://github.com/ltadrummond/challenge-sentiment-analysis/blob/main/images/count_plot_sentiments.png">
+
+
+* Word Cloud plot
+
 <img src="https://github.com/ltadrummond/challenge-sentiment-analysis/blob/main/images/word_cloud_not_deploy.png">
 
-
-# Model Validation
 
 
 
