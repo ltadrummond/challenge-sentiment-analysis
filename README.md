@@ -38,7 +38,7 @@ The data was collected from twitter using a libary called twint. I was able to a
 
 * Taking a look of the overall feeling about the series Squid Game
 
-<img src="https://github.com/ltadrummond/challenge-sentiment-analysis/blob/main/images/count_plot_sentiments.png">
+<img src="https://github.com/ltadrummond/challenge-sentiment-analysis/blob/main/images/count_plot_senti.png">
 
 
 * Word Cloud plot
