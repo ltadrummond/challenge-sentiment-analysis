@@ -5,7 +5,6 @@ from wordcloud import WordCloud, STOPWORDS
 from textblob import TextBlob
 import re
 import string
-from nltk.tokenize import word_tokenize
 import twint
 import plotly.express as px
 import matplotlib.pyplot as plt
@@ -34,10 +33,6 @@ def clean_tweets(text):
     cleaned_sentence= text.lower().replace('-', ' ')
     table= str.maketrans('', '', string.punctuation+string.digits)
     cleaned_sentence = text.translate(table)
-    # tokenizing words
-    tokens = word_tokenize(cleaned_sentence)
-    # stemming the words
-    cleaned_sentence = ' '.join(words)
     return cleaned_sentence
 
 
